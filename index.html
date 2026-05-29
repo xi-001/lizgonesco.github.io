@@ -76,4 +76,59 @@
             }
         </style>
     </head>
+    <body>
+        <button class="theme-toggle-btn" id="themeToggle"> Night 🌙</button>
+        
+        <h1 id="dynamicHeader">Day ☀️</h1>
+        <p class="subtitle" id="dynamicQuote">"The sun will rise and set regardless. What we choose to do with the light while it's here is up to us." - The Choice by Nicholas Sparks</p>
+
+        <div class="links">
+            <a href="#about">About Me</a>
+            <a href="#hobbies">Hobbies</a>
+            <a href="#motto">Motto</a>
+            <a href="#highlight-section" id="dynamicHighlight">Highlight of the Day: BREAKFAST </a>
+        </div>
+
+        <h2 id="about">About Me</h2>
+        <p>Hi! I'm Elizabeth, a student studying Computer Science and Mechatronic Engineering. University was the start of my coding journey and although coding isn't always a smooth ride, I'm always looking for opportunities to challenge myself and learn new things🧭!! (as well as pick up a few good friends along the way 😎).</p>
+
+        <h2 id="hobbies">Hobbies</h2>
+        <ul>
+            <li>Reading 📚</li>
+            <li>Hiking 🥾</li>
+            <li>Painting 🎨</li>
+        </ul>
+
+        <h2 id="motto">Motto</h2>
+        <p>I am a firm believer that a little misery builds character, and that sheer stubborness can get you through anything. "Fall down seven times, rise eight." </p>
+        
+        <div id="highlight-section"></div>
+
+        <script>
+            const toggleBtn = document.getElementById('themeToggle');
+            const dynamicHeader = document.getElementById('dynamicHeader');
+            const dynamicQuote = document.getElementById('dynamicQuote');
+            const dynamicHighlight = document.getElementById('dynamicHighlight');
+
+            toggleBtn.addEventListener('click', () => {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+               
+                if (currentTheme === 'dark') {
+                    // Switch to Day Mode
+                    document.documentElement.removeAttribute('data-theme');
+                    toggleBtn.textContent = ' Night 🌙';
+                    dynamicHeader.textContent = 'Day ☀️';
+                    dynamicQuote.textContent = '"The sun will rise and set regardless. What we choose to do with the light while it\'s here is up to us." - The Choice by Nicholas Sparks';
+                    dynamicHighlight.textContent = 'Highlight of the Day: BREAKFAST ';
+                } else {
+                    // Switch to Night Mode
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    toggleBtn.textContent = ' Day ☀️';
+                    dynamicHeader.textContent = 'Night 🌙';
+                    dynamicQuote.textContent = '"We are all dreamers, but some of us dream with out eyes open to make things happen." - The Starless Sea by Erin Morgenstern';
+                    dynamicHighlight.textContent = 'Highlight of the Night: journaling ᝰ.ᐟ';
+                }
+            });
+        </script>
+    </body>
 </html>
