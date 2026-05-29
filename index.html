@@ -51,7 +51,7 @@
             }
 
             ul { list-style-type: square; padding-left: 20px; }
-            li { margin-bottom: 8px; }
+            li { margin-bottom: 15px; }
 
             .links a { 
                 margin-right: 15px; 
@@ -74,6 +74,53 @@
                 font-weight: bold;
                 font-size: 14px;
             }
+
+            /* Carousel component styles */
+            .carousel-container {
+                position: relative;
+                max-width: 320px;
+                height: 180px;
+                margin: 10px 0;
+                overflow: hidden;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            }
+
+            .carousel-slides {
+                display: flex;
+                width: 100%;
+                height: 100%;
+                transition: transform 0.5s ease-in-out;
+            }
+
+            .carousel-slides img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                flex-shrink: 0;
+            }
+
+            /* Navigation buttons */
+            .carousel-btn {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                background: rgba(0, 0, 0, 0.5);
+                color: #fff;
+                border: none;
+                font-size: 18px;
+                padding: 8px 12px;
+                cursor: pointer;
+                border-radius: 50%;
+                user-select: none;
+                transition: background 0.3s;
+            }
+            .carousel-btn:hover {
+                background: rgba(0, 0, 0, 0.8);
+            }
+
+            .btn-prev { left: 10px; }
+            .btn-next { right: 10px; }
         </style>
     </head>
     <body>
@@ -86,7 +133,7 @@
             <a href="#about">About Me</a>
             <a href="#hobbies">Hobbies</a>
             <a href="#motto">Motto</a>
-            <a href="#highlight-section" id="dynamicHighlight">Highlight of the Day: BREAKFAST </a>
+            <a href="#highlight-section">Highlight</a>
         </div>
 
         <h2 id="about">About Me</h2>
@@ -94,22 +141,65 @@
 
         <h2 id="hobbies">Hobbies</h2>
         <ul>
-            <li>Reading 📚</li>
-            <li>Hiking 🥾</li>
-            <li>Painting 🎨</li>
+            <li>
+                <strong>Reading 📚</strong>
+                
+                <div class="carousel-container" id="reading-carousel">
+                    <div class="carousel-slides">
+                        <img src="https://i.pinimg.com/1200x/8f/0c/5a/8f0c5ad3f51e8943473d4f8f968dc487.jpg" alt="Book 1">
+                        <img src="https://i.pinimg.com/1200x/a0/f2/90/a0f290f242c5f54bb6fa29257904253a.jpg" alt="Book 2">
+                        <img src="https://i.pinimg.com/736x/37/d4/b6/37d4b6c18c08beef9555224a31134b7e.jpg" alt="Book3">
+                        <img src="https://i.pinimg.com/736x/9e/db/ea/9edbeae10eaca28c92c6f0730de613b7.jpg" alt="Book 4">
+                        <img src="https://i.pinimg.com/1200x/30/dc/08/30dc08f8811387abc779a8e9d80ab28f.jpg" alt="Book 5">
+                        <img src="https://i.pinimg.com/736x/77/c9/75/77c975892bf41481b472b72cab325aec.jpg" alt="Book 6">
+                    </div>
+                    <button class="carousel-btn btn-prev" onclick="moveSlide('reading-carousel', -1)">&#10094;</button>
+                    <button class="carousel-btn btn-next" onclick="moveSlide('reading-carousel', 1)">&#10095;</button>
+                </div>
+            </li>
+            <li>
+                <strong>Hiking 🥾</strong>
+
+                <div class="carousel-container" id="hiking-carousel">
+                    <div class="carousel-slides">
+                        <img src="https://i.pinimg.com/736x/7f/a4/ae/7fa4aeefd6aad32858eda072615cedd1.jpg" alt="Trail 1">
+                        <img src="https://i.pinimg.com/1200x/80/73/0d/80730dd4e09cda9942c0be732e8c88c4.jpg" alt="Trail 2">
+                        <img src="https://i.pinimg.com/736x/e0/33/56/e033567e96bf5152b3e3dbea33ac516b.jpg" alt="Trail 3">
+                    </div>
+                    <button class="carousel-btn btn-prev" onclick="moveSlide('hiking-carousel', -1)">&#10094;</button>
+                    <button class="carousel-btn btn-next" onclick="moveSlide('hiking-carousel', 1)">&#10095;</button>
+                </div>
+            </li>
+            <li>
+                <strong>Painting 🎨</strong>
+
+                <div class="carousel-container" id="hiking-carousel">
+                    <div class="carousel-slides">
+                        <img src="https://i.pinimg.com/736x/85/49/99/854999bfe437e9e76dff8875832d0038.jpg" alt="Art 1">
+                    </div>
+                    <button class="carousel-btn btn-prev" onclick="moveSlide('painting-carousel', -1)">&#10094;</button>
+                    <button class="carousel-btn btn-next" onclick="moveSlide('painting-carousel', 1)">&#10095;</button>
+                </div>
+
+                <p></p>
+            </li>
         </ul>
 
         <h2 id="motto">Motto</h2>
         <p>I am a firm believer that a little misery builds character, and that sheer stubborness can get you through anything. "Fall down seven times, rise eight." </p>
         
-        <div id="highlight-section"></div>
+        <div id="highlight-section">
+            <h2 id="highlightTitle">Highlight of my day</h2>
+            <p id="highlightDesc">breakfast 🍵🥑</p>
+        </div>
 
         <script>
             const toggleBtn = document.getElementById('themeToggle');
             const dynamicHeader = document.getElementById('dynamicHeader');
             const dynamicQuote = document.getElementById('dynamicQuote');
-            const dynamicHighlight = document.getElementById('dynamicHighlight');
-
+            const highlightTitle = document.getElementById('highlightTitle');
+            const highlightDesc = document.getElementById('highlightDesc');
+            
             toggleBtn.addEventListener('click', () => {
                 const currentTheme = document.documentElement.getAttribute('data-theme');
                
@@ -119,14 +209,16 @@
                     toggleBtn.textContent = ' Night 🌙';
                     dynamicHeader.textContent = 'Day ☀️';
                     dynamicQuote.textContent = '"The sun will rise and set regardless. What we choose to do with the light while it\'s here is up to us." - The Choice by Nicholas Sparks';
-                    dynamicHighlight.textContent = 'Highlight of the Day: BREAKFAST ';
+                    highlightTitle.textContent = 'Highlight of my day';
+                    highlightDesc.textContent = 'breakfast 🍵🥑';
                 } else {
                     // Switch to Night Mode
                     document.documentElement.setAttribute('data-theme', 'dark');
-                    toggleBtn.textContent = ' Day ☀️';
-                    dynamicHeader.textContent = 'Night 🌙';
+                    toggleBtn.textContent = ' Day ☀️🍵';
+                    dynamicHeader.textContent = 'Night 🌙✨';
                     dynamicQuote.textContent = '"We are all dreamers, but some of us dream with out eyes open to make things happen." - The Starless Sea by Erin Morgenstern';
-                    dynamicHighlight.textContent = 'Highlight of the Night: journaling ᝰ.ᐟ';
+                    highlightTitle.textContent = 'Highlight of my night';
+                    highlightDesc.textContent = 'journaling📔 and sleep💤';
                 }
             });
         </script>
