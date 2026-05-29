@@ -8,12 +8,12 @@
                 --text-color: #333333;
                 --heading-color: #111111;
                 --border-color: #e0d0a0;
-                --link-color: #b25900;
+                --link-color: #ff861c;
                 --toggle-bg: #fff0b3;
 
                 /* Day theme background */
                 --bg-color: #fffae6; /* sunny yellow */
-                --bg-image: url('https://i.pinimg.com/1200x/91/7c/0c/917c0ceb7a081b16c4ae1e48f4838701.jpg')
+                --bg-image: url('https://i.pinimg.com/1200x/91/7c/0c/917c0ceb7a081b16c4ae1e48f4838701.jpg');
 
             }
 
@@ -25,7 +25,7 @@
                 --toggle-bg: #0c265b;
 
                 /* Dark theme background */
-                --bg-color: #0a192f; 
+                --bg-color: rgba(10, 25, 47, 0.9); 
                 --bg-image: url('https://i.pinimg.com/736x/17/59/ef/1759ef7b65c45752b0d72aea35aeed53.jpg');
             }
 
@@ -40,6 +40,7 @@
                 background-image: var(--bg-image);
                 background-repeat: no-repeat;
                 background-size: cover;
+                background-blend-mode: overlay;
 
                 transition: background-color 0.5s, color 0.5s;
             }
@@ -78,8 +79,10 @@
             /* Carousel component styles */
             .carousel-container {
                 position: relative;
+                width: 100%;
                 max-width: 320px;
-                height: 180px;
+                aspect-ratio: 16 / 9;
+                height: auto;
                 margin: 10px 0;
                 overflow: hidden;
                 border-radius: 8px;
@@ -124,9 +127,9 @@
         </style>
     </head>
     <body>
-        <button class="theme-toggle-btn" id="themeToggle"> Night 🌙</button>
+        <button class="theme-toggle-btn" id="themeToggle"> Night 🌙✨</button>
         
-        <h1 id="dynamicHeader">Day ☀️</h1>
+        <h1 id="dynamicHeader">Day ☀️🍵</h1>
         <p class="subtitle" id="dynamicQuote">"The sun will rise and set regardless. What we choose to do with the light while it's here is up to us." - The Choice by Nicholas Sparks</p>
 
         <div class="links">
@@ -173,15 +176,13 @@
             <li>
                 <strong>Painting 🎨</strong>
 
-                <div class="carousel-container" id="hiking-carousel">
+                <div class="carousel-container" id="painting-carousel">
                     <div class="carousel-slides">
                         <img src="https://i.pinimg.com/736x/85/49/99/854999bfe437e9e76dff8875832d0038.jpg" alt="Art 1">
                     </div>
                     <button class="carousel-btn btn-prev" onclick="moveSlide('painting-carousel', -1)">&#10094;</button>
                     <button class="carousel-btn btn-next" onclick="moveSlide('painting-carousel', 1)">&#10095;</button>
                 </div>
-
-                <p></p>
             </li>
         </ul>
 
@@ -199,15 +200,16 @@
             const dynamicQuote = document.getElementById('dynamicQuote');
             const highlightTitle = document.getElementById('highlightTitle');
             const highlightDesc = document.getElementById('highlightDesc');
-            
+            const carouselIndexes = {};
+
             toggleBtn.addEventListener('click', () => {
                 const currentTheme = document.documentElement.getAttribute('data-theme');
                
                 if (currentTheme === 'dark') {
                     // Switch to Day Mode
                     document.documentElement.removeAttribute('data-theme');
-                    toggleBtn.textContent = ' Night 🌙';
-                    dynamicHeader.textContent = 'Day ☀️';
+                    toggleBtn.textContent = ' Night 🌙✨';
+                    dynamicHeader.textContent = 'Day ☀️🍵';
                     dynamicQuote.textContent = '"The sun will rise and set regardless. What we choose to do with the light while it\'s here is up to us." - The Choice by Nicholas Sparks';
                     highlightTitle.textContent = 'Highlight of my day';
                     highlightDesc.textContent = 'breakfast 🍵🥑';
@@ -216,11 +218,22 @@
                     document.documentElement.setAttribute('data-theme', 'dark');
                     toggleBtn.textContent = ' Day ☀️🍵';
                     dynamicHeader.textContent = 'Night 🌙✨';
-                    dynamicQuote.textContent = '"We are all dreamers, but some of us dream with out eyes open to make things happen." - The Starless Sea by Erin Morgenstern';
+                    dynamicQuote.textContent = '"We are all dreamers, but some of us dream with our eyes open to make things happen." - The Starless Sea by Erin Morgenstern';
                     highlightTitle.textContent = 'Highlight of my night';
                     highlightDesc.textContent = 'journaling📔 and sleep💤';
                 }
             });
+
+            function moveSlide(carouselId, direction) {
+                const carousel = document.getElementById(carouselId);
+                const slides = carousel.querySelector('.carousel-slides');
+                const totalSlides = slides.children.length;
+                if (!carouselIndexes[carouselId]) {
+                    carouselIndexes[carouselId] = 0;
+                }
+                carouselIndexes[carouselId] = (carouselIndexes[carouselId] + direction + totalSlides) % totalSlides;
+                slides.style.transform = `translateX(-${carouselIndexes[carouselId] * 100}%)`;
+            }
         </script>
     </body>
 </html>
